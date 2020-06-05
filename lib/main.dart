@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hardware_buttons/hardware_buttons.dart';
+import 'counterClass.dart';
+import 'constants.dart';
 
 // Create layout of page
 // have counter increment
@@ -11,15 +13,15 @@ import 'package:hardware_buttons/hardware_buttons.dart';
 // local storage?
 
 void main() {
-  runApp(MyApp());
+  runApp(MrCounter());
 }
 
-class MyApp extends StatelessWidget {
+class MrCounter extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Mr. Counter',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -36,13 +38,82 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Home(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+//getWidth() => MediaQuery.of(context).size.width;
+
+class _HomeState extends State<Home> {
+  // CounterClass from counterClass.dart
+  List<CounterClass> counters = [
+    CounterClass(count: 0, title: "Title of Counter"),
+    CounterClass(count: 0, title: "Second Counter"),
+  ];
+
+  Widget homeCounter(counter) {
+    deviceWidth = MediaQuery.of(context).size.width;
+    deviceHeight = MediaQuery.of(context).size.height;
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(deviceWidth * 0.03, deviceHeight * 0.0125,
+            deviceWidth * 0.03, deviceHeight * 0.0125),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    counter.title,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    '${counter.count}',
+                    style: TextStyle(fontSize: 28),
+                  ),
+                ],
+              ),
+              IconButton(
+                  icon: const Icon(Icons.arrow_forward),
+                  onPressed: () {
+                    print('homescreen');
+                  }),
+            ]),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+            appBar: AppBar(title: Text("Mr. Counter"), actions: <Widget>[
+              IconButton(
+                  icon: const Icon(Icons.list),
+                  onPressed: () {
+                    print('homescreen');
+                  })
+            ]),
+            body: Container(
+              color:Colors.grey[200],
+              child: Column(
+                children:
+                    counters.map((counter) => homeCounter(counter)).toList(),
+              ),
+            )));
+  }
+}
+
+class Counter extends StatefulWidget {
+  Counter({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -56,10 +127,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _CounterState createState() => _CounterState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _CounterState extends State<Counter> {
   TextEditingController _counterTitleController;
   int _counterValue = 0;
   String _counterTitle = "Title";
@@ -97,66 +168,49 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-            title: TextField(controller: _counterTitleController),
-            actions: <Widget>[
-              IconButton(
-                  icon: const Icon(Icons.list),
-                  onPressed: () {
-                    print('homescreen');
-                  })
-            ]),
-        body: Column(children: <Widget>[
-          Expanded(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                      child: Container(
-                          color: Colors.purple[400],
-                          child: FittedBox(
-                              fit: BoxFit.fitHeight,
-                              child: Text("$_counterValue"))))
-                ]),
-          ),
-          Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.0125),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
+    return Column(children: <Widget>[
+      AppBar(
+          title: TextField(controller: _counterTitleController),
+          actions: <Widget>[
+            IconButton(
+                icon: const Icon(Icons.list),
+                onPressed: () {
+                  print('homescreen');
+                })
+          ]),
+      Column(children: <Widget>[
+        Expanded(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                CounterButton(
-                  counterText: '-',
-                  fn: _decrementCounter,
-                ),
-                CounterButton(
-                  counterText: '+',
-                  fn: _incrementCounter,
-                ),
-              ],
-            ),
+                Expanded(
+                    child: Container(
+                        color: Colors.purple[400],
+                        child: FittedBox(
+                            fit: BoxFit.fitHeight,
+                            child: Text("$_counterValue"))))
+              ]),
+        ),
+        Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.0125),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              CounterButton(
+                counterText: '-',
+                fn: _decrementCounter,
+              ),
+              CounterButton(
+                counterText: '+',
+                fn: _incrementCounter,
+              ),
+            ],
           ),
-        ]),
-      ),
-    );
-  }
-}
-
-//stful
-class Counter extends StatefulWidget {
-  @override
-  _CounterState createState() => _CounterState();
-}
-
-class _CounterState extends State<Counter> {
-  int counterCount = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+        ),
+      ])
+    ]);
   }
 }
 
