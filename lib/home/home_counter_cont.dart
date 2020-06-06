@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hardware_buttons/hardware_buttons.dart';
-import 'counter_class.dart';
-import 'constants.dart';
+import '../counters/counter_class.dart';
+import '../constants.dart';
 import 'package:provider/provider.dart';
-import 'app_state.dart';
+import '../app_state.dart';
 
 class HomeCounterCont extends StatelessWidget {
   final CounterClass counter;

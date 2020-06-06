@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'counter_class.dart';
+import 'counters/counter_class.dart';
 
 class AppState with ChangeNotifier {
 
