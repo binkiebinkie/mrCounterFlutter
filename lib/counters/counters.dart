@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app_state.dart';
-import 'counter_button.dart';
+import 'counter_cont.dart';
 import 'package:provider/provider.dart';
 
 class Counters extends StatefulWidget {
@@ -58,37 +58,13 @@ class _CountersState extends State<Counters> {
                       Navigator.pop(context);
                     })
               ]),
-          body:Column(children: <Widget>[
-            Expanded(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Expanded(
-                      child: FittedBox(
-                          fit: BoxFit.fitHeight,
-                          child: Text("$_counterValue")),
-                    )
-                  ]),
-            ),
-            Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.0125),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  CounterButton(
-                    counterText: '-',
-                    fn: _decrementCounter,
-                  ),
-                  CounterButton(
-                    counterText: '+',
-                    fn: _incrementCounter,
-                  ),
-                ],
-              ),
-            ),
-          ])
+          body:Column(
+            children:appState.counters
+                .map((counter) => CounterCont(
+              counter: counter,
+            ))
+                .toList(),
+            )
       ),
     );
   }

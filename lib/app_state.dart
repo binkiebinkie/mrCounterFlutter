@@ -21,13 +21,17 @@ class AppState with ChangeNotifier {
     ),
   ];
 
-  void _incrementCounter() {
-//      _counterValue++;
+  void count(int id, String counterText) {
+    print(id);
+    int selectedIndex = counters.indexWhere((counter) => counter.id == id);
+    print(counters[selectedIndex].count);
+
+    counters[selectedIndex].count = counterText == "+" ? counters[selectedIndex].count + 1 : counters[selectedIndex].count - 1;
+    print(counters[selectedIndex].count);
+
+    notifyListeners();
   }
 
-  void _decrementCounter() {
-//      _counterValue >= 0 ? _counterValue-- : _counterValue;
-  }
 
   // When you click checkbox on home screen
   // select what appears on next screen

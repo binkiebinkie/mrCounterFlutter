@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-
+import '../app_state.dart';
+import 'package:provider/provider.dart';
 
 class CounterButton extends StatelessWidget {
-  CounterButton({this.counterText, this.fn});
+  CounterButton({this.counterText,this.counterId});
   final String counterText;
-  final Function fn;
+  final int counterId;
 
   Widget build(BuildContext context) {
+    final appState = Provider.of<AppState>(context);
+
     return FlatButton(
       onPressed: () {
-        fn();
+        appState.count(counterId,counterText);
       },
       color: Colors.purple[200],
       shape: CircleBorder(),
