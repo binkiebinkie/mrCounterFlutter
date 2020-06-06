@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hardware_buttons/hardware_buttons.dart';
-import 'counterClass.dart';
-import 'constants.dart';
+import 'counter_class.dart';
+import 'home_counter_cont.dart';
 
-// Create layout of page
-// have counter increment
-// have counter homepage
+// - Create layout of page
+// - have counter increment
+// - have counter homepage
+// Check counters to select them
+// press GO to switch to checkbox screen w multiple checkboxes
+// hook up counters to actual counter state
+
 // create and remove counters
 // hook up to firebase
 // have user, counters
 // create/delete/modify counter
 // local storage?
+
+// stretch goals:
+// hook up to firebase w accounts?
 
 void main() {
   runApp(MrCounter());
@@ -51,48 +58,29 @@ class Home extends StatefulWidget {
 //getWidth() => MediaQuery.of(context).size.width;
 
 class _HomeState extends State<Home> {
-  // CounterClass from counterClass.dart
+  // CounterClass from counter_class.dart
   List<CounterClass> counters = [
-    CounterClass(count: 0, title: "Title of Counter"),
-    CounterClass(count: 0, title: "Second Counter"),
+    CounterClass(
+      count: 0,
+      title: "Title of Counter",
+      id: 0,
+      selected: false,
+    ),
+    CounterClass(
+      count: 0,
+      title: "Second Counter",
+      id: 1,
+      selected: false,
+    ),
   ];
 
-  Widget homeCounter(counter) {
-    deviceWidth = MediaQuery.of(context).size.width;
-    deviceHeight = MediaQuery.of(context).size.height;
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(deviceWidth * 0.03, deviceHeight * 0.0125,
-            deviceWidth * 0.03, deviceHeight * 0.0125),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    counter.title,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    '${counter.count}',
-                    style: TextStyle(fontSize: 28),
-                  ),
-                ],
-              ),
-              IconButton(
-                  icon: const Icon(Icons.arrow_forward),
-                  onPressed: () {
-                    print('homescreen');
-                  }),
-            ]),
-      ),
-    );
-  }
+//  updateSelected() { setState(() {}) }
+
 
   @override
   Widget build(BuildContext context) {
+    print(counters);
+
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(title: Text("Mr. Counter"), actions: <Widget>[
@@ -103,17 +91,50 @@ class _HomeState extends State<Home> {
                   })
             ]),
             body: Container(
-              color:Colors.grey[200],
-              child: Column(
-                children:
-                    counters.map((counter) => homeCounter(counter)).toList(),
-              ),
+              padding: EdgeInsets.all(0),
+              margin: EdgeInsets.all(0),
+              color: Colors.grey[200],
+              child: Column(children: <Widget>[
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: counters
+                        .map((counter) => HomeCounterCont(counter: counter))
+                        .toList(),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: FlatButton(
+                            onPressed: () {},
+                            color: Colors.blue[300],
+                            materialTapTargetSize: MaterialTapTargetSize
+                                .shrinkWrap, // removes default container padding at bottom...?!
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "Go".toUpperCase(),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Icon(Icons.arrow_forward, size: 20)
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
+                )
+              ]),
             )));
   }
 }
 
 class Counter extends StatefulWidget {
-  Counter({Key key, this.title}) : super(key: key);
+  Counter({Key key, this.title, this.count}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -125,6 +146,7 @@ class Counter extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  final int count;
 
   @override
   _CounterState createState() => _CounterState();
