@@ -22,22 +22,19 @@ class AppState with ChangeNotifier {
   ];
 
   void _incrementCounter() {
-//    setState(() {
 //      _counterValue++;
-//    });
   }
 
   void _decrementCounter() {
-//    setState(() {
 //      _counterValue >= 0 ? _counterValue-- : _counterValue;
-//    });
   }
 
+  // When you click checkbox on home screen
+  // select what appears on next screen
   updateSelected(int id, bool value) {
     int selectedIndex = counters.indexWhere((counter) => counter.id == id);
-    print(selectedIndex);
-    print(value);
     counters[selectedIndex].selected = value;
+
     notifyListeners();
   }
 }

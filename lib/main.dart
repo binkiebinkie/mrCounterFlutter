@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
               IconButton(
                   icon: const Icon(Icons.list),
                   onPressed: () {
-                    print('homescreen');
+                    print('open settings');
                   })
             ]),
             body: Container(
@@ -88,7 +88,12 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                       Expanded(
                         child: FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Counters()),
+                              );
+                            },
                             color: Colors.blue[300],
                             materialTapTargetSize: MaterialTapTargetSize
                                 .shrinkWrap, // removes default container padding at bottom...?!
@@ -111,17 +116,17 @@ class _HomeState extends State<Home> {
   }
 }
 
-class Counter extends StatefulWidget {
-  Counter({Key key, this.title, this.count}) : super(key: key);
+class Counters extends StatefulWidget {
+  Counters({Key key, this.title, this.count}) : super(key: key);
 
   final String title;
   final int count;
 
   @override
-  _CounterState createState() => _CounterState();
+  _CountersState createState() => _CountersState();
 }
 
-class _CounterState extends State<Counter> {
+class _CountersState extends State<Counters> {
   TextEditingController _counterTitleController;
   int _counterValue = 0;
   String _counterTitle = "Title";
@@ -155,49 +160,50 @@ class _CounterState extends State<Counter> {
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
 
-    return Column(children: <Widget>[
-      AppBar(
-          title: TextField(controller: _counterTitleController),
-          actions: <Widget>[
-            IconButton(
-                icon: const Icon(Icons.list),
-                onPressed: () {
-                  print('homescreen');
-                })
-          ]),
-      Column(children: <Widget>[
-        Expanded(
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Expanded(
-                    child: Container(
-                        color: Colors.purple[400],
-                        child: FittedBox(
-                            fit: BoxFit.fitHeight,
-                            child: Text("$_counterValue"))))
-              ]),
-        ),
-        Padding(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.0125),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              CounterButton(
-                counterText: '-',
-                fn: _decrementCounter,
-              ),
-              CounterButton(
-                counterText: '+',
-                fn: _incrementCounter,
-              ),
-            ],
+    return SafeArea(
+      child: Scaffold(
+          appBar:AppBar(
+            title: TextField(controller: _counterTitleController),
+            actions: <Widget>[
+              IconButton(
+                  icon: const Icon(Icons.list),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
+            ]),
+        body:Column(children: <Widget>[
+          Expanded(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Expanded(
+                    child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Text("$_counterValue")),
+                  )
+                ]),
           ),
-        ),
-      ])
-    ]);
+          Padding(
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.0125),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                CounterButton(
+                  counterText: '-',
+                  fn: _decrementCounter,
+                ),
+                CounterButton(
+                  counterText: '+',
+                  fn: _incrementCounter,
+                ),
+              ],
+            ),
+          ),
+        ])
+    ),
+    );
   }
 }
 
