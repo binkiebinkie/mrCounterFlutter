@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:hardware_buttons/hardware_buttons.dart';
 import 'counter_class.dart';
 import 'constants.dart';
+import 'package:provider/provider.dart';
+import 'app_state.dart';
 
 class HomeCounterCont extends StatelessWidget {
   final CounterClass counter;
+
   HomeCounterCont({this.counter});
 
   @override
   Widget build(BuildContext context) {
     deviceWidth = MediaQuery.of(context).size.width;
     deviceHeight = MediaQuery.of(context).size.height;
+    final appState = Provider.of<AppState>(context);
+    print(counter);
     return Container(
       color: Colors.white,
       child: Padding(
@@ -34,7 +39,7 @@ class HomeCounterCont extends StatelessWidget {
               ),
               Checkbox(
                 value: counter.selected,
-                onChanged: (checked){print('checked');},
+                onChanged: (value){appState.updateSelected(counter.id,value);},
               )
 
             ]),

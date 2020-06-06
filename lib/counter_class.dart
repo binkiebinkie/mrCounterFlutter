@@ -8,7 +8,7 @@ class CounterClass {
   // constructor
   // with curly brackets we need to name them
   // without you have to make sure is in order
-  CounterClass({this.count, this.title, this.id,this.selected});
+  CounterClass({this.count, this.title, this.id, this.selected});
 }
 
 // to make a new counter do the following:
