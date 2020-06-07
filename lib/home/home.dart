@@ -45,12 +45,12 @@ class _HomeState extends State<Home> {
                       Expanded(
                         child: FlatButton(
                             onPressed: () {
-                              Navigator.push(
+                              appState.numberOfSelected > 0 ? Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => Counters()),
-                              );
+                              ) : null;
                             },
-                            color: Colors.blue[300],
+                            color: appState.numberOfSelected > 0 ? Colors.blue[300] : Colors.grey[400],
                             materialTapTargetSize: MaterialTapTargetSize
                                 .shrinkWrap, // removes default container padding at bottom...?!
                             child: Row(

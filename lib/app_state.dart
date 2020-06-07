@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'counters/counter_class.dart';
 
 class AppState with ChangeNotifier {
-
   AppState();
 
   final List<CounterClass> counters = [
@@ -27,10 +26,15 @@ class AppState with ChangeNotifier {
     ),
   ];
 
+  // number of counters selected
+  int numberOfSelected = 0;
+
   // increment/decrement count, depending on text passed
   void count(int id, String counterText) {
     int selectedIndex = counters.indexWhere((counter) => counter.id == id);
-    counters[selectedIndex].count = counterText == "+" ? counters[selectedIndex].count + 1 : counters[selectedIndex].count - 1;
+    counters[selectedIndex].count = counterText == "+"
+        ? counters[selectedIndex].count + 1
+        : counters[selectedIndex].count - 1;
     notifyListeners();
   }
 
@@ -39,6 +43,10 @@ class AppState with ChangeNotifier {
   updateSelected(int id, bool value) {
     int selectedIndex = counters.indexWhere((counter) => counter.id == id);
     counters[selectedIndex].selected = value;
+
+    // also update the number of selected checkboxes
+    numberOfSelected =
+        value == true ? numberOfSelected += 1 : numberOfSelected -= 1;
     notifyListeners();
   }
 
