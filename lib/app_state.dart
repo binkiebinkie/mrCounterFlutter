@@ -27,18 +27,25 @@ class AppState with ChangeNotifier {
     ),
   ];
 
+  // increment/decrement count, depending on text passed
   void count(int id, String counterText) {
     int selectedIndex = counters.indexWhere((counter) => counter.id == id);
     counters[selectedIndex].count = counterText == "+" ? counters[selectedIndex].count + 1 : counters[selectedIndex].count - 1;
     notifyListeners();
   }
 
-
   // When you click checkbox on home screen
   // select what appears on next screen
   updateSelected(int id, bool value) {
     int selectedIndex = counters.indexWhere((counter) => counter.id == id);
     counters[selectedIndex].selected = value;
+    notifyListeners();
+  }
+
+  void updateTextTitle(int id, String title) {
+    int selectedIndex = counters.indexWhere((counter) => counter.id == id);
+    counters[selectedIndex].title = title;
+
     notifyListeners();
   }
 }

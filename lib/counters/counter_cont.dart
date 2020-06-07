@@ -5,7 +5,7 @@ import 'counter_class.dart';
 import 'package:provider/provider.dart';
 
 class CounterCont extends StatefulWidget {
-  CounterCont({Key key,this.counter}) : super(key:key);
+  CounterCont({Key key, this.counter}) : super(key: key);
   final CounterClass counter;
 
   @override
@@ -33,8 +33,8 @@ class _CounterContState extends State<CounterCont> {
                   controller: _counterTitleController,
 //                  onChanged: (text) {},
                   onSubmitted: (value) {
-                    appState.counters[widget.counter.id].title =
-                        _counterTitleController.text;
+                    appState.updateTextTitle(
+                        widget.counter.id, _counterTitleController.text);
                   },
                 ),
               )
@@ -46,11 +46,12 @@ class _CounterContState extends State<CounterCont> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-//                    Expanded(
-                FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: Text("${appState?.counters[widget.counter.id].count}")),
-//                    )
+                Expanded(
+                  child: FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                          "${appState?.counters[widget.counter.id].count}")),
+                )
               ]),
         ),
         Padding(
