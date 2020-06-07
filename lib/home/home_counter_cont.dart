@@ -15,7 +15,7 @@ class HomeCounterCont extends StatelessWidget {
     deviceWidth = MediaQuery.of(context).size.width;
     deviceHeight = MediaQuery.of(context).size.height;
     final appState = Provider.of<AppState>(context);
-    print(counter);
+
     return Container(
       color: Colors.white,
       child: Padding(

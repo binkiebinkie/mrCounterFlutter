@@ -15,20 +15,21 @@ class AppState with ChangeNotifier {
     ),
     CounterClass(
       count: 0,
-      title: "Second Counter",
+      title: "1 Counter",
       id: 1,
+      selected: false,
+    ),
+    CounterClass(
+      count: 0,
+      title: "3 Counter",
+      id: 2,
       selected: false,
     ),
   ];
 
   void count(int id, String counterText) {
-    print(id);
     int selectedIndex = counters.indexWhere((counter) => counter.id == id);
-    print(counters[selectedIndex].count);
-
     counters[selectedIndex].count = counterText == "+" ? counters[selectedIndex].count + 1 : counters[selectedIndex].count - 1;
-    print(counters[selectedIndex].count);
-
     notifyListeners();
   }
 
@@ -38,7 +39,6 @@ class AppState with ChangeNotifier {
   updateSelected(int id, bool value) {
     int selectedIndex = counters.indexWhere((counter) => counter.id == id);
     counters[selectedIndex].selected = value;
-
     notifyListeners();
   }
 }
