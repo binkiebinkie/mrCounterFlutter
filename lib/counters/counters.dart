@@ -16,9 +16,9 @@ class Counters extends StatelessWidget {
           body: Container(
             child: Column(
               children: appState.counters
-                  .map((counter) => CounterCont(
+                  .map((counter) => counter.selected? CounterCont(
                         counter:counter
-                      ))
+                      ) : SizedBox.shrink())
                   .toList(),
             ),
           )),
