@@ -33,7 +33,7 @@ class _CounterContState extends State<CounterCont> {
                   controller: _counterTitleController,
 //                  onChanged: (text) {},
                   onSubmitted: (value) {
-                    appState.updateTextTitle(
+                    appState.updateCounterTitle(
                         widget.counter.id, _counterTitleController.text);
                   },
                 ),

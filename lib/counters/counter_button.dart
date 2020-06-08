@@ -15,7 +15,7 @@ class CounterButton extends StatelessWidget {
 
     return  FlatButton(
         onPressed: () {
-          appState.count(counterId,counterText);
+          appState.updateCount(counterId,counterText);
         },
         color: Colors.purple[200],
         shape: CircleBorder(),

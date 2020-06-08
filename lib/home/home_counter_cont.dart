@@ -39,7 +39,7 @@ class HomeCounterCont extends StatelessWidget {
               ),
               Checkbox(
                 value: counter.selected,
-                onChanged: (value){appState.updateSelected(counter.id,value);},
+                onChanged: (value){appState.homeUpdateSelected(counter.id,value);},
               )
 
             ]),
