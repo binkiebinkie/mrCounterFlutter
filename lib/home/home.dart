@@ -3,6 +3,9 @@ import '../app_state.dart';
 import 'package:provider/provider.dart';
 import 'home_counter_cont.dart';
 import '../counters/counters.dart';
+import 'package:hardware_buttons/hardware_buttons.dart' as HardwareButtons;
+import 'dart:async';
+
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +13,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+//  String _latestHardwareButtonEvent;
+//
+//  StreamSubscription<HardwareButtons.VolumeButtonEvent> _volumeButtonSubscription;
+//
+//  @override
+//  void initState() {
+//    super.initState();
+//    _volumeButtonSubscription = HardwareButtons.volumeButtonEvents.listen((event) {
+//      String volumePressed = event.toString();
+//
+//      if (volumePressed == 'VolumeButtonEvent.VOLUME_UP') {
+//        AppState.updateCount
+//      } (volumePressed == 'VolumeButtonEvent.VOLUME_DOWN') {
+//
+//      }
+//
+//      setState(() {
+//        _latestHardwareButtonEvent = event.toString();
+//      });
+//    });
+//  }
+
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);

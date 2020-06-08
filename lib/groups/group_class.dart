@@ -1,12 +1,10 @@
 // data object for counter
-class CounterClass {
+class GroupClass {
   int id; // unique id
-  int count; // what's this counters value?
-  String title; // title of counter
-  bool selected; // whether or not counter should be shown
-  int incrementAmount; // how much the counter should increment
+  List counters; // list of counter ID's to put in
+  String title; // title of group
 
-  // String color; // color to make counter
+  // String color; // color to make group
 
   // constructor
   // with curly brackets we need to name them
